@@ -92,6 +92,10 @@ export const BodyDiv = styled.div`
 			border-radius: 0.3rem;
 		}
 
+		pre[class*='language-'] {
+			background: #272822 !important;
+		}
+
 		& > p > code {
 			background: #f3f3f3;
 			padding: 0.3rem 0.6rem;
