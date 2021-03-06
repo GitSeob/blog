@@ -1,0 +1,22 @@
+{
+	"presets": ["next/babel"],
+	"plugins": [
+		[
+			"styled-components",
+			{
+				"ssr": true,
+				"displayName": false
+			}
+		],
+		[
+			"prismjs",
+			{
+				"languages": ["javascript", "css", "html", "python", "c", "cpp", "js", "json"],
+				"plugins": ["line-numbers", "show-language"],
+				"theme": "okaidia",
+				"css": false
+			}
+		]
+	]
+}
+
