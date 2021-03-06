@@ -46,7 +46,14 @@ const PostPage = () => {
 						<meta property="og:title" content={post.title} />
 						<meta property="og:url" content={`https://blog.hsan.kr/post/${post.id}`} />
 						<meta property="og:description" content={post.description} />
-						{post.thumbnail && <meta property="og:image" content={post.thumbnail} />}
+						<meta
+							property="og:image"
+							content={
+								post.thumbnail
+									? post.thumbnail
+									: 'https://gitseob-blog-bucket.s3.ap-northeast-2.amazonaws.com/images/ogImage.png'
+							}
+						/>
 					</Head>
 					<Container>
 						<PostTitle title={post.title} id={post.id} isUser={user && true} />
