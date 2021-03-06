@@ -1,6 +1,7 @@
 import { loadingStart, loadingEnd } from '@reducers/loading';
 import { LOGIN_REQUEST, loginAsync, LOAD_USER_REQUSET, loadUserAsync } from '@reducers/user';
-import axios from 'axios';
+import { IUser } from '@typings/datas';
+import axios, { AxiosResponse } from 'axios';
 import { call, all, fork, takeLatest, put, takeEvery } from 'redux-saga/effects';
 
 async function loadUserAPI() {
@@ -22,7 +23,11 @@ function* watchLoadUser() {
 }
 
 async function loginAPI(loginData: any) {
-	return await axios.post(`/user`, loginData);
+	return await axios.post(`/user`, loginData, {
+		headers: {
+			'Access-Control-Allow-Origin': '*',
+		},
+	});
 }
 
 function* login(action: ReturnType<typeof loginAsync.request>) {
