@@ -1,7 +1,6 @@
 import { loadingStart, loadingEnd } from '@reducers/loading';
 import { LOGIN_REQUEST, loginAsync, LOAD_USER_REQUSET, loadUserAsync } from '@reducers/user';
-import { IUser } from '@typings/datas';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { call, all, fork, takeLatest, put, takeEvery } from 'redux-saga/effects';
 
 async function loadUserAPI() {

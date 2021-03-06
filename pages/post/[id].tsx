@@ -39,20 +39,26 @@ const PostPage = () => {
 			{loading.REMOVE_POST_REQUEST && <LoadingFilter />}
 
 			{post ? (
-				<Container>
+				<>
 					<Head>
 						<title>{post.title}</title>
 						<meta name="description" content={post.description} />
+						<meta property="og:title" content={post.title} />
+						<meta property="og:url" content={`https://blog.hsan.kr/post/${post.id}`} />
+						<meta property="og:description" content={post.description} />
+						{post.thumbnail && <meta property="og:image" content={post.thumbnail} />}
 					</Head>
-					<PostTitle title={post.title} id={post.id} isUser={user && true} />
-					<DateP>{dayjs(post.createdAt).format('YYYY년 MM월 DD일')}</DateP>
-					<Categories categories={post.categoryPosts} aflg={false} />
-					{post.thumbnail && post.body.indexOf(post.thumbnail) === -1 && <img src={post.thumbnail} />}
-					<div className="bodyContainer">
-						<PostBody setTitle={false} body={post.body} />
-					</div>
-					<Disqus id={post.id} />
-				</Container>
+					<Container>
+						<PostTitle title={post.title} id={post.id} isUser={user && true} />
+						<DateP>{dayjs(post.createdAt).format('YYYY년 MM월 DD일')}</DateP>
+						<Categories categories={post.categoryPosts} aflg={false} />
+						{post.thumbnail && post.body.indexOf(post.thumbnail) === -1 && <img src={post.thumbnail} />}
+						<div className="bodyContainer">
+							<PostBody setTitle={false} body={post.body} />
+						</div>
+						<Disqus id={post.id} />
+					</Container>
+				</>
 			) : (
 				<Error statusCode={404} />
 			)}
