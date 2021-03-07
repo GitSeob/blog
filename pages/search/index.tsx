@@ -10,7 +10,7 @@ import { RootState } from '@reducers/index';
 import useInput from '@hooks/useInput';
 import { useRouter } from 'next/router';
 import { LOAD_SEARCH_REQUEST } from '@reducers/posts';
-import DefaultErrorPage from 'next/error';
+import Error from '../_error';
 import Head from 'next/head';
 
 interface SearchProps {
@@ -80,7 +80,7 @@ const Search = ({ search }: SearchProps) => {
 					/>
 				</SearchInput>
 				{loadPostsErrorReason ? (
-					<DefaultErrorPage statusCode={503} title="서버가 응답하지 않습니다." />
+					<Error statusCode={503} message="서버가 응답하지 않습니다." />
 				) : (
 					<>
 						{search && (
