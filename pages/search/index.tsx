@@ -54,7 +54,7 @@ const Search = ({ search }: SearchProps) => {
 	return (
 		<>
 			<Head>
-				<title>검색'</title>
+				<title>검색</title>
 				<meta property="og:title" content="홍섭씨의 개발 블로그" />
 				<meta property="og:url" content="https://blog.hsan.kr/search" />
 				<meta property="og:description" content="검색 페이지 - 홍섭씨의 개발 블로그" />

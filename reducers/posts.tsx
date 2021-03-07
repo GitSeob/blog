@@ -37,9 +37,14 @@ export const loadPostsAsync = createAsyncAction(LOAD_POSTS_REQUEST, LOAD_POSTS_S
 	AxiosError
 >();
 
+interface ISearchPostsPayload {
+	posts: IPost[];
+	findPostCount: number;
+}
+
 export const searchPostsAsync = createAsyncAction(LOAD_SEARCH_REQUEST, LOAD_SEARCH_SUCCESS, LOAD_SEARCH_FAILURE)<
 	loadPostRequestPayload,
-	AxiosResponse<any>,
+	AxiosResponse<ISearchPostsPayload>,
 	AxiosError
 >();
 
@@ -87,7 +92,7 @@ const postsReducer = createReducer<IPostsState, PostsAction>(initialState, {
 		isLoaddingPosts: false,
 		posts: state.posts.concat(payload.data.posts),
 		findPostCount: payload.data.findPostCount,
-		EndOfPosts: payload.data.length !== 8,
+		EndOfPosts: payload.data.posts.length !== 8,
 	}),
 	[LOAD_SEARCH_FAILURE]: (state, { payload: error }) => ({
 		...state,
