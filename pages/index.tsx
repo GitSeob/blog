@@ -11,6 +11,7 @@ import axios from 'axios';
 import Error from './_error';
 import { RootState } from '@reducers/index';
 import Head from 'next/head';
+import { LoadingBallBox } from '@components/layout/LoadingFilter';
 
 interface IndexProps {
 	category: string;
@@ -20,6 +21,7 @@ const Index = ({ category }: IndexProps) => {
 	const { posts, Category, isLoaddingPosts, EndOfPosts, numberOfPosts, loadPostsErrorReason } = useSelector(
 		(state: RootState) => state.posts,
 	);
+	const loading = useSelector((state: RootState) => state.loading);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -41,7 +43,7 @@ const Index = ({ category }: IndexProps) => {
 		return () => {
 			window.removeEventListener('scroll', onScroll);
 		};
-	}, [posts]);
+	}, [posts, EndOfPosts, isLoaddingPosts, loadPostsErrorReason]);
 
 	return (
 		<>
@@ -60,6 +62,7 @@ const Index = ({ category }: IndexProps) => {
 				<MainContainer>
 					<HeadCategories category={category} Category={Category} pageRoot="" postNum={numberOfPosts} />
 					<PostCards posts={posts} />
+					{loading['posts/LOAD_SEARCH_REQUEST'] && <LoadingBallBox />}
 				</MainContainer>
 			)}
 		</>
