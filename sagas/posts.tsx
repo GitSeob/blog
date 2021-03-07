@@ -1,4 +1,4 @@
-import { loadCategoriesAsync, loadPostsAsync } from '@reducers/posts';
+import { loadCategoriesAsync, loadPostsAsync, searchPostsAsync } from '@reducers/posts';
 import axios, { AxiosResponse } from 'axios';
 import { call, all, fork, takeLatest, put } from 'redux-saga/effects';
 
@@ -20,9 +20,25 @@ function* watchloadCategories() {
 	yield takeLatest(loadCategoriesAsync.request, loadCategories);
 }
 
+async function searchPostsAPI(query: any) {
+	return await axios.get(`/post/search?lastId=${query.lastId || 0}&search=${encodeURIComponent(query.search)}`);
+}
+
+function* searchPosts(action: ReturnType<typeof searchPostsAsync.request>) {
+	try {
+		const result: AxiosResponse<any> = yield call(searchPostsAPI, action.payload);
+		yield put(searchPostsAsync.success(result));
+	} catch (error) {
+		console.error(error);
+		yield put(searchPostsAsync.failure(error));
+	}
+}
+
+function* watchSearchPosts() {
+	yield takeLatest(searchPostsAsync.request, searchPosts);
+}
+
 async function loadAllPostsAPI(query: any) {
-	if (query.search)
-		return await axios.get(`/post/search?lastId=${query.lastId || 0}&search=${encodeURIComponent(query.search)}`);
 	return await axios.get(
 		`/post?lastId=${query.lastId || 0}&category=${query.category ? encodeURIComponent(query.category) : '0'}`,
 	);
@@ -43,5 +59,5 @@ function* watchLoadAllPosts() {
 }
 
 export default function* postsSaga() {
-	yield all([fork(watchloadCategories), fork(watchLoadAllPosts)]);
+	yield all([fork(watchloadCategories), fork(watchLoadAllPosts), fork(watchSearchPosts)]);
 }

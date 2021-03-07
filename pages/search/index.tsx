@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@reducers/index';
 import useInput from '@hooks/useInput';
 import { useRouter } from 'next/router';
-import { LOAD_POSTS_REQUEST } from '@reducers/posts';
+import { LOAD_SEARCH_REQUEST } from '@reducers/posts';
 import DefaultErrorPage from 'next/error';
 import Head from 'next/head';
 
@@ -35,7 +35,7 @@ const Search = ({ search }: SearchProps) => {
 				if (!(loadPostsErrorReason || isLoaddingPosts || EndOfPosts)) {
 					const lastId = posts[posts.length - 1]?.id;
 					dispatch({
-						type: LOAD_POSTS_REQUEST,
+						type: LOAD_SEARCH_REQUEST,
 						payload: {
 							search: search,
 							lastId: lastId,
@@ -108,7 +108,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
 	});
 	if (context.query.search)
 		context.store.dispatch({
-			type: LOAD_POSTS_REQUEST,
+			type: LOAD_SEARCH_REQUEST,
 			payload: {
 				search: context.query.search,
 			},
