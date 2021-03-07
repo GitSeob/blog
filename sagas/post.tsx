@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { call, all, fork, takeLatest, put } from 'redux-saga/effects';
 import { loadPostAsync, writePostAsync, removePostAsync } from '@reducers/post';
 import { loadingEnd, loadingStart } from '@reducers/loading';
@@ -11,7 +11,7 @@ async function removePostAPI(id: any) {
 function* removePost(action: ReturnType<typeof removePostAsync.request>) {
 	yield put(loadingStart(action.type));
 	try {
-		const result = yield call(removePostAPI, action.payload);
+		const result: AxiosResponse<any> = yield call(removePostAPI, action.payload);
 		yield put(removePostAsync.success(result.data));
 	} catch (error) {
 		console.error(error);
@@ -35,7 +35,7 @@ async function writePostAPI(postData: any) {
 function* writePost(action: ReturnType<typeof writePostAsync.request>) {
 	yield put(loadingStart(action.type));
 	try {
-		const result = yield call(writePostAPI, action.payload);
+		const result: AxiosResponse<any> = yield call(writePostAPI, action.payload);
 		result.data.isEdited = true;
 		yield put(writePostAsync.success(result.data));
 	} catch (error) {
@@ -57,7 +57,7 @@ async function loadPostAPI(id: any) {
 function* loadPost(action: ReturnType<typeof loadPostAsync.request>) {
 	yield put(loadingStart(action.type));
 	try {
-		const result = yield call(loadPostAPI, action.payload);
+		const result: AxiosResponse<any> = yield call(loadPostAPI, action.payload);
 		yield put(loadPostAsync.success(result.data));
 	} catch (error) {
 		console.error(error);

@@ -36,8 +36,7 @@ const PostPage = () => {
 
 	return (
 		<>
-			{loading.REMOVE_POST_REQUEST && <LoadingFilter />}
-
+			{loading['post/REMOVE_POST_REQUEST'] && <LoadingFilter />}
 			{post ? (
 				<>
 					<Head>

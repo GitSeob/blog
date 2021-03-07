@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[16],{XSTO:function(n,w,o){(window.__NEXT_P=window.__NEXT_P||[]).push(["/posting",function(){return o("Y1zR")}])}},[["XSTO",1,2,0,3,6,5,8]]]);
