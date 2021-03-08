@@ -57,12 +57,15 @@ const Index = ({ category }: IndexProps) => {
 				/>
 			</Head>
 			{loadPostsErrorReason ? (
-				<Error statusCode={503} message="서버가 응답하지 않아요..." />
+				<Error
+					statusCode={loadPostsErrorReason === 'timeout' ? 408 : 503}
+					message="알 수 없는 에러가 발생했어요"
+				/>
 			) : (
 				<MainContainer>
 					<HeadCategories category={category} Category={Category} pageRoot="" postNum={numberOfPosts} />
 					<PostCards posts={posts} />
-					{loading['posts/LOAD_SEARCH_REQUEST'] && <LoadingBallBox />}
+					{loading['posts/LOAD_POSTS_REQUEST'] && <LoadingBallBox />}
 				</MainContainer>
 			)}
 		</>

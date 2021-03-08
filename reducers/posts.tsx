@@ -81,7 +81,7 @@ const postsReducer = createReducer<IPostsState, PostsAction>(initialState, {
 	[LOAD_POSTS_FAILURE]: (state, { payload: error }) => ({
 		...state,
 		isLoaddingPosts: false,
-		loadPostsErrorReason: error.response ? error.response.data : 'Error!',
+		loadPostsErrorReason: error.code === 'ECONNABORTED' ? 'timeout' : error.message,
 	}),
 	[LOAD_SEARCH_REQUEST]: (state) => ({
 		...state,
@@ -97,7 +97,7 @@ const postsReducer = createReducer<IPostsState, PostsAction>(initialState, {
 	[LOAD_SEARCH_FAILURE]: (state, { payload: error }) => ({
 		...state,
 		isLoaddingPosts: false,
-		loadPostsErrorReason: error.response ? error.response.data : 'Error!',
+		loadPostsErrorReason: error.code === 'ECONNABORTED' ? 'timeout' : error.message,
 	}),
 	[LOAD_CATEGORIES_REQUEST]: (state) => ({
 		...state,

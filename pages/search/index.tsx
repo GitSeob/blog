@@ -83,7 +83,10 @@ const Search = ({ search }: SearchProps) => {
 					/>
 				</SearchInput>
 				{loadPostsErrorReason ? (
-					<Error statusCode={503} message="알 수 없는 에러가 발생했어요" />
+					<Error
+						statusCode={loadPostsErrorReason === 'timeout' ? 408 : 503}
+						message="알 수 없는 에러가 발생했어요"
+					/>
 				) : (
 					<>
 						{search && (
