@@ -56,11 +56,13 @@ const PostPage = () => {
 						<PostTitle title={post.title} id={post.id} isUser={user && true} />
 						<DateP>{dayjs(post.createdAt).format('YYYY년 MM월 DD일')}</DateP>
 						<Categories categories={post.categoryPosts} aflg={false} />
-						{post.thumbnail && post.body.indexOf(post.thumbnail) === -1 && <img src={post.thumbnail} />}
+						{post.thumbnail && post.body.indexOf(post.thumbnail) === -1 && (
+							<img src={post.thumbnail} alt="post_thumbnail" />
+						)}
 						<div className="bodyContainer">
 							<PostBody setTitle={false} body={post.body} />
 						</div>
-						<LinkedPosts categories={linkedPosts} />
+						{post.categoryPosts.length > 0 && <LinkedPosts categories={linkedPosts} />}
 					</Container>
 				</>
 			) : (
